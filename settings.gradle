@@ -1,0 +1,2 @@
+rootProject.name='kiri-project'
+include ':app'
