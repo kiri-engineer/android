@@ -1,5 +1,6 @@
 package com.example.android.kiri.ui.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -24,8 +25,29 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val textView: TextView = root.findViewById(R.id.text_home)
         homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+            //textView.text = it
         })
         return root
+    }
+
+    @SuppressLint("SetTextI18n")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val textView = view.findViewById<TextView>(R.id.text_home)
+        // 初期値テキスト
+        val initialText = textView.text
+        // １文字追加ボタン
+        view.findViewById<View>(R.id.add_button).also { v ->
+            v.setOnClickListener {
+                textView.text = "${textView.text}Z"
+            }
+        }
+        // クリアボタン
+        view.findViewById<View>(R.id.clear_button).also { v ->
+            v.setOnClickListener {
+                textView.text = initialText
+            }
+        }
     }
 }
